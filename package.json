@@ -2,7 +2,7 @@
   "name": "blog-webapi",
   "version": "1.0.0",
   "description": "Use nodejs to build a blog backend",
-  "main": "src/server.js",
+  "main": "src/server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/YiTingLee/blog-webapi#readme",
   "dependencies": {
+    "@types/node": "^11.13.8",
     "express": "^4.16.4",
     "express-graphql": "^0.8.0",
     "graphql": "^14.2.1"

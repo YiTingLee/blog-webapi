@@ -21,6 +21,7 @@
     "@types/node": "^11.13.8",
     "express": "^4.16.4",
     "express-graphql": "^0.8.0",
-    "graphql": "^14.2.1"
+    "graphql": "^14.2.1",
+    "graphql-yoga": "^1.17.4"
   }
 }

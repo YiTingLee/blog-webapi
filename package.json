@@ -4,7 +4,8 @@
   "description": "Use nodejs to build a blog backend",
   "main": "src/server.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && nodemon"
   },
   "repository": {
     "type": "git",

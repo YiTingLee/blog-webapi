@@ -2,6 +2,7 @@ const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const { graphql, buildSchema } = require('graphql');
 const { GraphQLServer } = require('graphql-yoga');
+require('./db/db.ts');
 
 // Construct a schema, using GraphQL schema language
 const typeDefs = `

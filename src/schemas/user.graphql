@@ -1,0 +1,19 @@
+input UserInfoReq {
+  id: String
+  name: String!
+  account: String!
+  password: String!
+  email: String!
+}
+
+input UserIdReq {
+  id: String!
+}
+
+type UserInfoRes {
+  id: String!
+  name: String!
+  account: String!
+  password: String!
+  email: String!
+}

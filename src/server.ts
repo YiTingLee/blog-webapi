@@ -2,14 +2,11 @@ const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const { graphql, buildSchema } = require('graphql');
 const { GraphQLServer } = require('graphql-yoga');
+const { importSchema } = require('graphql-import');
 require('./db/db.ts');
 
 // Construct a schema, using GraphQL schema language
-const typeDefs = `
-  type Query {
-    hello(name: String): String!
-  }
-`;
+const typeDefs = importSchema( __dirname + '/schemas/schema.graphql')
 
 // The root provides a resolver function for each API endpoint
 const resolvers = {

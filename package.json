@@ -22,6 +22,8 @@
     "express": "^4.16.4",
     "express-graphql": "^0.8.0",
     "graphql": "^14.2.1",
-    "graphql-yoga": "^1.17.4"
+    "graphql-import": "^0.7.1",
+    "graphql-yoga": "^1.17.4",
+    "mongoose": "^5.5.5"
   }
 }

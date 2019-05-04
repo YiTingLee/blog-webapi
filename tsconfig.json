@@ -2,8 +2,11 @@
   "compilerOptions": {
       "outDir": "./built",
       "allowJs": true,
-      "target": "es5",
-      "sourceMap": true
+      "target": "es2016",
+      "sourceMap": true,
+      "lib": ["es2017", "dom", "esnext.asynciterable"],
+      "moduleResolution": "node",
+      "module": "commonjs"
   },
   "include": [
       "./src/**/*"

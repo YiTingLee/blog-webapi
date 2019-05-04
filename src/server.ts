@@ -1,9 +1,7 @@
-const express = require('express');
-const graphqlHTTP = require('express-graphql');
-const { graphql, buildSchema } = require('graphql');
-const { GraphQLServer } = require('graphql-yoga');
-const { importSchema } = require('graphql-import');
-require('./db/db.ts');
+import { GraphQLServer } from 'graphql-yoga';
+import { importSchema } from 'graphql-import';
+import { User } from './models/user.model';
+require('./db/db');
 
 // Construct a schema, using GraphQL schema language
 const typeDefs = importSchema(__dirname + '/schemas/schema.graphql')
@@ -39,7 +37,11 @@ const resolvers = {
   }
 };
 
-const server = new GraphQLServer({ typeDefs, resolvers });
+const context = {
+  userDb: User
+}
+
+const server = new GraphQLServer({ typeDefs, resolvers, context });
 server.start({
   port: 3000
 }, () => console.log('Server is running on localhost:3000'));

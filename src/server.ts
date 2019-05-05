@@ -25,8 +25,15 @@ const resolvers = {
     }
   },
   Mutation: {
-    createUser(preObj, args, context, info) {
-      return user;
+    async createUser(preObj, args, context, info) {
+      const user = new context.userModel(args.request);
+
+      try {
+        await user.save();
+      } catch (e) {
+        return e;
+      }
+      return true;
     },
     updateUser(preObj, args, context, info) {
       return user;
@@ -38,7 +45,7 @@ const resolvers = {
 };
 
 const context = {
-  userDb: User
+  userModel: User
 }
 
 const server = new GraphQLServer({ typeDefs, resolvers, context });

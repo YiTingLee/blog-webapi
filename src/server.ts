@@ -1,6 +1,6 @@
 import { GraphQLServer } from 'graphql-yoga';
 import { importSchema } from 'graphql-import';
-import { context } from './core/context';
+import { context, Context } from './core/context';
 import('./db/db');
 
 // Construct a schema, using GraphQL schema language
@@ -17,19 +17,19 @@ const user = {
 const resolvers = {
   Query: {
     hello: (_, { name }) => `Hello ${name || 'World'}`,
-    getUser(preObj, args, context, info) {
+    getUser(preObj, args, context: Context, info) {
       return user;
     },
-    async getUsers(preObj, args, context, info) {
+    async getUsers(preObj, args, context: Context, info) {
       const users = context.UserModel.find({});
       return users;
     },
-    login(preObj, args, context, info) {
+    login(preObj, args, context: Context, info) {
       return [user];
     }
   },
   Mutation: {
-    async createUser(preObj, args, context, info) {
+    async createUser(preObj, args, context: Context, info) {
       const user = new context.UserModel(args.request);
 
       try {
@@ -39,7 +39,7 @@ const resolvers = {
       }
       return true;
     },
-    async updateUser(preObj, args, context, info) {
+    async updateUser(preObj, args, context: Context, info) {
       // TODO: it will be implemented later.
       const user = await context.UserModel.findOne({ _id: args.request.id });
       if (!user) {
@@ -47,7 +47,7 @@ const resolvers = {
       }
       return user;
     },
-    async deleteUser(preObj, args, context, info) {
+    async deleteUser(preObj, args, context: Context, info) {
       const user = await context.UserModel.findOne({ _id: args.request.id });
       if (!user) {
         throw Error('user is not found');

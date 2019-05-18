@@ -17,7 +17,11 @@ const user = {
 const resolvers = {
   Query: {
     hello: (_, { name }) => `Hello ${name || 'World'}`,
-    getUser(preObj, args, context: Context, info) {
+    async getUser(preObj, args, context: Context, info) {
+      const user = await context.UserModel.findOne({ _id: args.request.id });
+      if (!user) {
+        throw Error('user is not found');
+      }
       return user;
     },
     async getUsers(preObj, args, context: Context, info) {

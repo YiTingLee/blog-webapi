@@ -40,11 +40,11 @@ const resolvers = {
       return true;
     },
     async updateUser(preObj, args, context, info) {
+      // TODO: it will be implemented later.
       const user = await context.UserModel.findOne({ _id: args.request.id });
       if (!user) {
         throw Error('user is not found');
       }
-      user.remove();
       return user;
     },
     async deleteUser(preObj, args, context, info) {

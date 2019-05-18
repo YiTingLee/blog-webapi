@@ -37,12 +37,25 @@ export const resolvers = {
       return true;
     },
     async updateUser(preObj, args, context: Context, info) {
-      // TODO: it will be implemented later.
       const user = await context.UserModel.findOne({ _id: args.request.id });
       if (!user) {
         throw Error('user is not found');
       }
-      return user;
+      delete args.request.id;
+      const updates = Object.keys(args.request);
+      const allowedUpdates = ['name', 'email', 'password'];
+      const isValidOperation = updates.every(update => allowedUpdates.includes(update));
+      if (!isValidOperation) {
+        throw Error('Invalid updates');
+      }
+
+      try {
+        updates.forEach(update => user[update] = args.request[update]);
+        await user.save();
+      } catch (e) {
+        throw Error(e);
+      }
+      return true;
     },
     async deleteUser(preObj, args, context: Context, info) {
       const user = await context.UserModel.findOne({ _id: args.request.id });

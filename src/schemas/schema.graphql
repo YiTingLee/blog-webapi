@@ -9,6 +9,6 @@ type Query {
 
 type Mutation {
   createUser(request: UserInfoReq!): Boolean!
-  updateUser(request: UserInfoReq!): Boolean!
+  updateUser(request: UpdateUserReq!): Boolean!
   deleteUser(request: UserIdReq!): Boolean!
 }

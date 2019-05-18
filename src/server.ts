@@ -1,6 +1,6 @@
 import { GraphQLServer } from 'graphql-yoga';
 import { importSchema } from 'graphql-import';
-import { User } from './models/user.model';
+import { context } from './core/context';
 require('./db/db');
 
 // Construct a schema, using GraphQL schema language
@@ -20,13 +20,17 @@ const resolvers = {
     getUser(preObj, args, context, info) {
       return user;
     },
-    getUsers(preObj, args, context, info) {
+    async getUsers(preObj, args, context, info) {
+      const users = context.UserModel.find({});
+      return users;
+    },
+    login(preObj, args, context, info) {
       return [user];
     }
   },
   Mutation: {
     async createUser(preObj, args, context, info) {
-      const user = new context.userModel(args.request);
+      const user = new context.UserModel(args.request);
 
       try {
         await user.save();
@@ -43,10 +47,6 @@ const resolvers = {
     }
   }
 };
-
-const context = {
-  userModel: User
-}
 
 const server = new GraphQLServer({ typeDefs, resolvers, context });
 server.start({

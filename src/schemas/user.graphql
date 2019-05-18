@@ -17,3 +17,8 @@ type UserInfoRes {
   password: String!
   email: String!
 }
+
+input LoginReq {
+  account: String!
+  password: String!
+}

@@ -4,6 +4,7 @@ type Query {
   hello(name: String): String!
   getUser(request: UserIdReq!): UserInfoRes
   getUsers: [UserInfoRes!]
+  login(request: LoginReq!): UserInfoRes
 }
 
 type Mutation {

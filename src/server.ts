@@ -1,7 +1,7 @@
 import { GraphQLServer } from 'graphql-yoga';
 import { importSchema } from 'graphql-import';
 import { context } from './core/context';
-require('./db/db');
+import('./db/db');
 
 // Construct a schema, using GraphQL schema language
 const typeDefs = importSchema(__dirname + '/schemas/schema.graphql')
@@ -39,11 +39,21 @@ const resolvers = {
       }
       return true;
     },
-    updateUser(preObj, args, context, info) {
+    async updateUser(preObj, args, context, info) {
+      const user = await context.UserModel.findOne({ _id: args.request.id });
+      if (!user) {
+        throw Error('user is not found');
+      }
+      user.remove();
       return user;
     },
-    deleteUser(preObj, args, context, info) {
-      return user;
+    async deleteUser(preObj, args, context, info) {
+      const user = await context.UserModel.findOne({ _id: args.request.id });
+      if (!user) {
+        throw Error('user is not found');
+      }
+      user.remove();
+      return true;
     }
   }
 };

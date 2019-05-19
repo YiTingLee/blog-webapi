@@ -20,14 +20,18 @@
   },
   "homepage": "https://github.com/YiTingLee/blog-webapi#readme",
   "dependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.3.2",
     "@types/mongoose": "^5.5.1",
     "@types/node": "^11.13.10",
     "@types/validator": "^10.11.0",
+    "bcryptjs": "^2.4.3",
     "express": "^4.16.4",
     "express-graphql": "^0.8.0",
     "graphql": "^14.2.1",
     "graphql-import": "^0.7.1",
     "graphql-yoga": "^1.17.4",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.5.5",
     "ts-node": "^8.1.0",
     "validator": "^10.11.0"

@@ -29,3 +29,12 @@ input LoginReq {
   account: String!
   password: String!
 }
+
+type LoginRes {
+  id: String!
+  name: String!
+  account: String!
+  password: String!
+  email: String!
+  token: String!
+}

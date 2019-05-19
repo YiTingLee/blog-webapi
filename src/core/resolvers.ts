@@ -18,11 +18,14 @@ export const resolvers = {
       return user;
     },
     async getUsers(preObj, args, context: Context, info) {
-      const users = context.UserModel.find({});
+      const users = await context.UserModel.find({});
       return users;
     },
-    login(preObj, args, context: Context, info) {
-      return [user];
+    async login(preObj, args, context: Context, info) {
+      const user = await context.UserModel.findByCredentials(args.request.account, args.request.password);
+      const token = await user.generateAuthToken();
+      const { _id, name, account, password, email } = user;
+      return { id: _id, name, account, password, email, token };
     },
     async getPost(preObj, args, context: Context, info) {
       const post = await context.PostModel.findOne({ _id: args.request.id });

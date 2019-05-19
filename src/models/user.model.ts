@@ -1,5 +1,8 @@
 import * as validator from 'validator';
 import * as mongoose from 'mongoose';
+import * as jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcryptjs';
+import { UserModel } from '../core/context';
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -29,9 +32,49 @@ const userSchema = new mongoose.Schema({
       }
       return true;
     }
-  }
+  },
+  tokens: [{
+    token: {
+      type: String,
+      required: true
+    }
+  }]
 });
 
-const User = mongoose.model('User', userSchema);
+userSchema.methods.generateAuthToken = async function() {
+  const user = this;
+  const token = jwt.sign({ _id: user._id }, 'mytoken');
+
+  user.tokens = user.tokens.concat({ token });
+  await user.save();
+
+  return token;
+}
+
+userSchema.statics.findByCredentials = async (account, password) => {
+  const user = await User.findOne({ account });
+
+  if (!user) {
+    throw new Error('Cannot find the user');
+  }
+
+  const isMatch = await bcrypt.compare(password, user['password']);
+  if (!isMatch) {
+    throw new Error('Unable to login');
+  }
+  return user;
+}
+
+userSchema.pre('save', async function (next) {
+  const user = this;
+
+  if (user.isModified('password')) {
+    user['password'] = await bcrypt.hash(user['password'], 8);
+  }
+
+  next();
+})
+
+const User = mongoose.model('User', userSchema) as UserModel;
 
 export { User };

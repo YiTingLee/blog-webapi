@@ -1,0 +1,24 @@
+input PostInfoReq {
+  title: String!
+  body: String!
+  userId: String!
+}
+
+input UpdatePostReq {
+  id: String!
+  title: String
+  body: String
+  userId: String!
+}
+
+input PostIdReq {
+  id: String!
+  userId: String!
+}
+
+type PostInfoRes {
+  id: String!
+  title: String!
+  body: String!
+  userId: String
+}

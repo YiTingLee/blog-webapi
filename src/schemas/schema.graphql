@@ -1,3 +1,4 @@
+# import * from './post.graphql'
 # import * from './user.graphql'
 
 type Query {
@@ -5,10 +6,15 @@ type Query {
   getUser(request: UserIdReq!): UserInfoRes
   getUsers: [UserInfoRes!]
   login(request: LoginReq!): UserInfoRes
+  getPost(request: PostIdReq!): PostInfoRes!
+  getPosts(request: UserIdReq!): [PostInfoRes]!
 }
 
 type Mutation {
   createUser(request: UserInfoReq!): Boolean!
   updateUser(request: UpdateUserReq!): Boolean!
   deleteUser(request: UserIdReq!): Boolean!
+  createPost(request: PostInfoReq!): Boolean!
+  updatePost(request: UpdatePostReq!): Boolean!
+  deletePost(request: PostIdReq!): Boolean!
 }

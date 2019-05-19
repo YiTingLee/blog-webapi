@@ -23,6 +23,17 @@ export const resolvers = {
     },
     login(preObj, args, context: Context, info) {
       return [user];
+    },
+    async getPost(preObj, args, context: Context, info) {
+      const post = await context.PostModel.findOne({ _id: args.request.id });
+      if (!post) {
+        throw Error('post is not found');
+      }
+      return post;
+    },
+    async getPosts(preObj, args, context: Context, info) {
+      const posts = await context.PostModel.find({ userId: args.request.id });
+      return posts;
     }
   },
   Mutation: {
@@ -41,13 +52,8 @@ export const resolvers = {
       if (!user) {
         throw Error('user is not found');
       }
-      delete args.request.id;
-      const updates = Object.keys(args.request);
       const allowedUpdates = ['name', 'email', 'password'];
-      const isValidOperation = updates.every(update => allowedUpdates.includes(update));
-      if (!isValidOperation) {
-        throw Error('Invalid updates');
-      }
+      const updates = Object.keys(args.request).filter(key => allowedUpdates.includes(key));
 
       try {
         updates.forEach(update => user[update] = args.request[update]);
@@ -63,6 +69,41 @@ export const resolvers = {
         throw Error('user is not found');
       }
       user.remove();
+      return true;
+    },
+    async createPost(preObj, args, context: Context, info) {
+      const { title, body, userId } = args.request;
+      const post = new context.PostModel({ title, body, userId });
+
+      try {
+        await post.save();
+      } catch (e) {
+        return e;
+      }
+      return true;
+    },
+    async updatePost(preObj, args, context: Context, info) {
+      const post = await context.PostModel.findOne({ _id: args.request.id });
+      if (!post) {
+        throw Error('post is not found');
+      }
+      const allowedUpdates = ['title', 'body'];
+      const updates = Object.keys(args.request).filter(key => allowedUpdates.includes(key));
+
+      try {
+        updates.forEach(update => post[update] = args.request[update]);
+        await post.save();
+      } catch (e) {
+        throw Error(e);
+      }
+      return true;
+    },
+    async deletePost(preObj, args, context: Context, info) {
+      const post = await context.PostModel.findOne({ _id: args.request.id });
+      if (!post) {
+        throw Error('post is not found');
+      }
+      post.remove();
       return true;
     }
   }

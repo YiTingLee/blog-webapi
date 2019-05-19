@@ -12,5 +12,6 @@ export const permissions = {
     createPost: auth,
     updatePost: auth,
     deletePost: auth,
+    logout: auth
   }
 }

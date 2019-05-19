@@ -108,6 +108,16 @@ export const resolvers = {
       }
       post.remove();
       return true;
+    },
+    async logout(preObj, args, context: Context, info) {
+      const token = context.Authorization.replace('Bearer ', '');
+      context.user.tokens = context.user.tokens.filter(item => item.token !== token);
+      try {
+        await context.user.save();
+      } catch (e) {
+        return e;
+      }
+      return true;
     }
   }
 };

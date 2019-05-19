@@ -17,4 +17,5 @@ type Mutation {
   createPost(request: PostInfoReq!): Boolean!
   updatePost(request: UpdatePostReq!): Boolean!
   deletePost(request: PostIdReq!): Boolean!
+  logout: Boolean!
 }

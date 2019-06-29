@@ -14,5 +14,5 @@ RUN npm install
 COPY . .
 
 EXPOSE 3000
-ENTRYPOINT ["sh"]
-# CMD ["npm", "start"]
+# ENTRYPOINT ["sh"]
+CMD ["npm", "start"]

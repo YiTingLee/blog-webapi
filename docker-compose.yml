@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  mongo:
+     image: mongo
+     ports:
+      - "27017:27017"
+     networks:
+       - backend
+  api2:
+    image: api2
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+    links: 
+      - mongo
+    networks:
+      - backend
+networks:
+  backend:
+    driver: "bridge"

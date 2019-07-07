@@ -17,6 +17,10 @@ services:
       - mongo
     networks:
       - backend
+  app:
+    image: app
+    ports:
+      - "4200:4200"
 networks:
   backend:
     driver: "bridge"

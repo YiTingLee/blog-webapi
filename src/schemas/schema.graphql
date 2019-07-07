@@ -15,7 +15,7 @@ type Mutation {
   createUser(request: UserInfoReq!): Boolean!
   updateUser(request: UpdateUserReq!): Boolean!
   deleteUser(request: UserIdReq!): Boolean!
-  createPost(request: PostInfoReq!): Boolean!
+  createPost(request: PostInfoReq!): String!
   updatePost(request: UpdatePostReq!): Boolean!
   deletePost(request: PostIdReq!): Boolean!
   logout: Boolean!

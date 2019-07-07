@@ -1,11 +1,4 @@
 import { Context } from './context';
-const user = {
-  id: '1',
-  name: 'eric',
-  account: 'eric account',
-  password: 'eric password',
-  email: 'eric@email.com'
-};
 
 export const resolvers = {
   Query: {
@@ -81,13 +74,13 @@ export const resolvers = {
     async createPost(preObj, args, context: Context, info) {
       const { title, body, userId } = args.request;
       const post = new context.PostModel({ title, body, userId });
-
+      
       try {
         await post.save();
       } catch (e) {
         return e;
       }
-      return true;
+      return post._id;
     },
     async updatePost(preObj, args, context: Context, info) {
       const post = await context.PostModel.findOne({ _id: args.request.id });

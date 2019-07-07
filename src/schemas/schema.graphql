@@ -8,6 +8,7 @@ type Query {
   login(request: LoginReq!): LoginRes
   getPost(request: PostIdReq!): PostInfoRes!
   getPosts(request: UserIdReq!): [PostInfoRes]!
+  getAllPosts: [PostInfoRes!]
 }
 
 type Mutation {

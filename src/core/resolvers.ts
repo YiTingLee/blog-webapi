@@ -37,6 +37,10 @@ export const resolvers = {
     async getPosts(preObj, args, context: Context, info) {
       const posts = await context.PostModel.find({ userId: args.request.id });
       return posts;
+    },
+    async getAllPosts(preObj, args, context: Context, info) {
+      const posts = await context.PostModel.find({});
+      return posts;
     }
   },
   Mutation: {

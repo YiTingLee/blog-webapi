@@ -6,7 +6,7 @@ type Query {
   getUser(request: UserIdReq!): UserInfoRes
   getUsers: [UserInfoRes!]
   login(request: LoginReq!): LoginRes
-  getPost(request: PostIdReq!): PostInfoRes!
+  getPost(request: IdReq!): PostInfoRes!
   getPosts(request: UserIdReq!): [PostInfoRes]!
   getAllPosts: [PostInfoRes!]
 }

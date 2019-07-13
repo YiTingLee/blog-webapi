@@ -10,10 +10,10 @@ export const resolvers = {
       }
       return user;
     },
-    async getUsers(preObj, args, context: Context, info) {
-      const users = await context.UserModel.find({});
-      return users;
-    },
+    // async getUsers(preObj, args, context: Context, info) {
+    //   const users = await context.UserModel.find({});
+    //   return users;
+    // },
     async login(preObj, args, context: Context, info) {
       const user = await context.UserModel.findByCredentials(args.request.account, args.request.password);
       const token = await user.generateAuthToken();

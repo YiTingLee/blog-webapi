@@ -4,7 +4,7 @@
 type Query {
   hello(name: String): String!
   getUser(request: UserIdReq!): UserInfoRes
-  getUsers: [UserInfoRes!]
+  # getUsers: [UserInfoRes!]
   login(request: LoginReq!): LoginRes
   getPost(request: IdReq!): PostInfoRes!
   getPosts(request: UserIdReq!): [PostInfoRes]!

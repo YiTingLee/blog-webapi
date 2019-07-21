@@ -2,11 +2,12 @@ version: '3'
 
 services:
   mongo:
-     image: mongo
-     ports:
+    image: mongo
+    ports:
       - "27017:27017"
-     networks:
-       - backend
+    networks:
+      - backend
+    restart: always
   api2:
     image: yitinglee/blog-api
     ports:
@@ -17,10 +18,12 @@ services:
       - mongo
     networks:
       - backend
+    restart: always
   app:
     image: yitinglee/blog-app
     ports:
       - "4200:4200"
+    restart: always
 networks:
   backend:
     driver: "bridge"
